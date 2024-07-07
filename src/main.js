@@ -1,5 +1,9 @@
-import { createApp } from 'vue'
-import './style.css'
-import App from './App.vue'
+import { createApp } from 'vue';
+import AOS from 'aos';
 
-createApp(App).mount('#app')
+import './style.css';
+import './aos.css';
+import App from './App.vue';
+AOS.init();
+
+createApp(App).mount('#app');
