@@ -86,7 +86,6 @@ export default {
 };
 </script>
 
-
 <template>
 	<div class="header">
 		<img
@@ -113,7 +112,9 @@ export default {
 		<ScrollyVideo
 			id="land-scap-video"
 			:videoPercentage="0"
-			src="https://story-telling-storage.twreporter.org/files/hk-font-0626-landscape-lJME8N0znScoICcvjdc.mp4"
+			src="./assets/hk-landscap.mp4"
+			@onReady="onReady"
+			@onChange="onChange"
 		/>
 		<div
 			v-for="(item, index) in introList"
@@ -131,13 +132,13 @@ export default {
 	<div class="live-photo">
 		<div class="live-photo-header">
 			<button @click="prev">
-				{{ '<' }}
+				<i class="arrow left" />
 			</button>
 			<p>
 				下面是一些過去在香港旅遊時紀錄的招牌以及霓虹燈
 			</p>
 			<button @click="next">
-				{{ '>' }}
+				<i class="arrow right" />
 			</button>
 		</div>
 		<Carousel
@@ -255,10 +256,27 @@ export default {
 
 		button {
 			width: 60px;
-			height: 60px;
+			height: 40px;
 			border: 1px solid #ccc;
 			background-color: transparent;
 			color: white;
+
+			.arrow {
+				border: solid white;
+				border-width: 0 4px 4px 0;
+				display: inline-block;
+				padding: 4px;
+			}
+
+			.right {
+				transform: rotate(-45deg);
+				-webkit-transform: rotate(-45deg);
+			}
+
+			.left {
+				transform: rotate(135deg);
+				-webkit-transform: rotate(135deg);
+			}
 
 			&:hover {
 				background-color: rgba(255, 255, 255, .3);
@@ -292,6 +310,12 @@ export default {
 		padding-left: 12px;
 		margin: 0;
 		font-size: 12px;
+
+		li {
+			:hover {
+				color: #888;
+			}
+		}
 	}
 }
 </style>
