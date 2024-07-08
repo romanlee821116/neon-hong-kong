@@ -106,7 +106,7 @@ export default {
 		</div>
 	</div>
 	<div class="intro">
-		本身很喜歡香港的招牌跟霓虹燈，也希望這個文化被更多人看到，在這邊做一個簡單的介紹。
+		本身很喜歡香港的招牌跟霓虹燈，也希望這個文化被更多人看到，在這邊做一個簡單的介紹💫💫
 	</div>
 	<div id="video-body">
 		<ScrollyVideo
@@ -135,7 +135,7 @@ export default {
 				<i class="arrow left" />
 			</button>
 			<p>
-				下面是一些過去在香港旅遊時紀錄的招牌以及霓虹燈
+				下面是一些過去在香港旅遊時紀錄的招牌以及霓虹燈 📷
 			</p>
 			<button @click="next">
 				<i class="arrow right" />
@@ -156,6 +156,9 @@ export default {
 				>
 			</Slide>
 		</Carousel>
+		<div class="other">
+			如果也喜歡招牌、霓虹燈的朋友，也歡迎到香港M+的<a href="https://www.neonsigns.hk/neon-in-visual-culture/mplus-collects-neon/" target="_blank">探索霓虹</a>網站，看看更多漂亮的霓虹招牌吧！✨
+		</div>
 		<div class="refer">
 			<b>參考資料</b>
 			<ul>
@@ -163,7 +166,7 @@ export default {
 					v-for="(item, index) in referList"
 					:key="`refer-item${index}`"
 				>
-					<a :href="item.url">
+					<a :href="item.url" target="_blank" alt="ref-text">
 						{{ item.text }}
 					</a>
 				</li>
@@ -295,6 +298,17 @@ export default {
 	img {
 		height: 400px;
 		width: auto;
+	}
+}
+
+.other {
+	padding: 40px 0;
+	color: white;
+	font-weight: bold;
+
+	a {
+		color: white;
+		text-decoration: underline;
 	}
 }
 
