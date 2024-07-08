@@ -1,5 +1,6 @@
 <script>
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.vue';
+import Loading from './components/Loading.vue';
 import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
@@ -9,6 +10,7 @@ export default {
 		ScrollyVideo,
 		Carousel,
 		Slide,
+		Loading,
 	},
 	computed: {
 		imgList() {
@@ -63,6 +65,7 @@ export default {
 				},
 			],
 			isDesktop: true,
+			isLoading: true,
 		};
 	},
 	mounted() {
@@ -71,6 +74,7 @@ export default {
 			behavior: 'smooth',
 		});
 		this.isDesktop = window.innerWidth > 565;
+		this.closeLoading();
 	},
 	methods: {
 		getPicture(slide) {
@@ -82,100 +86,121 @@ export default {
 		prev() {
 			this.$refs.carousel.prev()
 		},
+		closeLoading() {
+			const self = this;
+			setTimeout(() => {
+				self.isLoading = false;
+			}, 3000);
+		},
 	},
 };
 </script>
 
 <template>
-	<div class="header">
-		<img
-			src="../public/assets/hongkong-neon-light.jpg"
-			alt="banner"
-		>
-		<p>
-			Keith Macgregor, Neon Fantasy #1 Nathan Road, Kowloon, Hong Kong（2006） © Keith Macgregor
-		</p>
-		<div class="mask" />
-		<div class="title">
-			<h1 class="neon-text">
-				HONG KONG
-			</h1>
-			<h2 class="neon-text">
-				NEON CITY
-			</h2>
-		</div>
-	</div>
-	<div class="intro">
-		本身很喜歡香港的招牌跟霓虹燈，也希望這個文化被更多人看到，在這邊做一個簡單的介紹💫💫
-	</div>
-	<div id="video-body">
-		<ScrollyVideo
-			id="land-scap-video"
-			:videoPercentage="0"
-			src="./assets/hk-landscap.mp4"
-			@onReady="onReady"
-			@onChange="onChange"
-		/>
-		<div
-			v-for="(item, index) in introList"
-			:key="`desc-item${index}`"
-			class="desc-item"
-			:style="{
-				top: `${item.top}%`,
-				left: `${item.left}%`,
-			}"
-			data-aos="fade-up"
-			data-aos-duration="1000"
-			v-html="item.text"
-		/>
-	</div>
-	<div class="live-photo">
-		<div class="live-photo-header">
-			<button @click="prev">
-				<i class="arrow left" />
-			</button>
-			<p>
-				下面是一些過去在香港旅遊時紀錄的招牌以及霓虹燈 📷
-			</p>
-			<button @click="next">
-				<i class="arrow right" />
-			</button>
-		</div>
-		<Carousel
-			ref="carousel" 
-			:items-to-show="isDesktop ? 3 : 1"
-			:wrap-around="true"
-		>
-			<Slide
-				v-for="(img, index) in imgList"
-				:key="`picture-${index}`"
-			>
+	<Loading v-if="isLoading"/>
+	<Transition>
+		<div v-show="!isLoading">
+			<div class="header">
 				<img
-					:src="img"
-					alt="hong-kong-picture"
+					src="../public/assets/hongkong-neon-light.jpg"
+					alt="banner"
 				>
-			</Slide>
-		</Carousel>
-		<div class="other">
-			如果也喜歡招牌、霓虹燈的朋友，也歡迎到香港M+的<a href="https://www.neonsigns.hk/neon-in-visual-culture/mplus-collects-neon/" target="_blank">探索霓虹</a>網站，看看更多漂亮的霓虹招牌吧！✨
-		</div>
-		<div class="refer">
-			<b>參考資料</b>
-			<ul>
-				<li
-					v-for="(item, index) in referList"
-					:key="`refer-item${index}`"
+				<p>
+					Keith Macgregor, Neon Fantasy #1 Nathan Road, Kowloon, Hong Kong（2006） © Keith Macgregor
+				</p>
+				<div class="mask" />
+				<div class="title">
+					<h1 class="neon-text">
+						HONG KONG
+					</h1>
+					<h2 class="neon-text">
+						NEON CITY
+					</h2>
+				</div>
+			</div>
+			<div class="intro">
+				本身很喜歡香港的招牌跟霓虹燈，也希望這個文化被更多人看到，在這邊做一個簡單的介紹💫💫
+			</div>
+			<div id="video-body">
+				<ScrollyVideo
+					id="land-scap-video"
+					:videoPercentage="0"
+					src="./assets/hk-landscap.mp4"
+					@onReady="onReady"
+					@onChange="onChange"
+				/>
+				<div
+					v-for="(item, index) in introList"
+					:key="`desc-item${index}`"
+					class="desc-item"
+					:style="{
+						top: `${item.top}%`,
+						left: `${item.left}%`,
+					}"
+					data-aos="fade-up"
+					data-aos-duration="1000"
+					v-html="item.text"
+				/>
+			</div>
+			<div class="live-photo">
+				<div class="live-photo-header">
+					<button @click="prev">
+						<i class="arrow left" />
+					</button>
+					<p>
+						下面是一些過去在香港旅遊時紀錄的招牌以及霓虹燈 📷
+					</p>
+					<button @click="next">
+						<i class="arrow right" />
+					</button>
+				</div>
+				<Carousel
+					ref="carousel" 
+					:items-to-show="isDesktop ? 3 : 1"
+					:wrap-around="true"
 				>
-					<a :href="item.url" target="_blank" alt="ref-text">
-						{{ item.text }}
-					</a>
-				</li>
-			</ul>
+					<Slide
+						v-for="(img, index) in imgList"
+						:key="`picture-${index}`"
+					>
+						<img
+							:src="img"
+							alt="hong-kong-picture"
+						>
+					</Slide>
+				</Carousel>
+				<div class="other">
+					如果也喜歡招牌、霓虹燈的朋友，也歡迎到香港M+的<a href="https://www.neonsigns.hk/neon-in-visual-culture/mplus-collects-neon/" target="_blank">探索霓虹</a>網站，看看更多漂亮的霓虹招牌吧！✨
+				</div>
+				<div class="refer">
+					<b>參考資料</b>
+					<ul>
+						<li
+							v-for="(item, index) in referList"
+							:key="`refer-item${index}`"
+						>
+							<a :href="item.url" target="_blank" alt="ref-text">
+								{{ item.text }}
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
 		</div>
-	</div>
+	</Transition>
 </template>
 
 <style lang="scss" scoped>
+.v-enter-active,
+.v-leave-active {
+	transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+	opacity: 0;
+}
+
 .header {
 	position: relative;
 
