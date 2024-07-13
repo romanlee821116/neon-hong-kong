@@ -1,7 +1,7 @@
 <script>
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.vue';
 import Loading from './components/Loading.vue';
-import { Carousel, Slide } from 'vue3-carousel';
+import { Carousel, Slide, Navigation } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
 export default {
@@ -11,6 +11,7 @@ export default {
 		Carousel,
 		Slide,
 		Loading,
+		Navigation,
 	},
 	computed: {
 		imgList() {
@@ -74,23 +75,19 @@ export default {
 			behavior: 'smooth',
 		});
 		this.isDesktop = window.innerWidth > 565;
-		this.closeLoading();
 	},
 	methods: {
 		getPicture(slide) {
 			return require(`./assets/hongkong-${slide}.jpg`);
 		},
 		next() {
-			this.$refs.carousel.next()
+			this.$refs.carousel.next();
 		},
 		prev() {
-			this.$refs.carousel.prev()
+			this.$refs.carousel.prev();
 		},
-		closeLoading() {
-			const self = this;
-			setTimeout(() => {
-				self.isLoading = false;
-			}, 3000);
+		readyCallBack() {
+			this.isLoading = false;
 		},
 	},
 };
@@ -126,8 +123,7 @@ export default {
 					id="land-scap-video"
 					:videoPercentage="0"
 					src="./assets/hk-landscap.mp4"
-					@onReady="onReady"
-					@onChange="onChange"
+					:onReady="readyCallBack"
 				/>
 				<div
 					v-for="(item, index) in introList"
@@ -168,6 +164,9 @@ export default {
 							alt="hong-kong-picture"
 						>
 					</Slide>
+					<template #addons>
+						<Navigation />
+					</template>
 				</Carousel>
 				<div class="other">
 					如果也喜歡招牌、霓虹燈的朋友，也歡迎到香港M+的<a href="https://www.neonsigns.hk/neon-in-visual-culture/mplus-collects-neon/" target="_blank">探索霓虹</a>網站，看看更多漂亮的霓虹招牌吧！✨
