@@ -116,7 +116,7 @@ export default {
 				</div>
 			</div>
 			<div class="intro">
-				本身很喜歡香港的招牌跟霓虹燈，也希望這個文化被更多人看到，在這邊做一個簡單的介紹💫💫
+				本身很喜歡香港的招牌跟霓虹燈，也希望這個文化被更多人看到，在這邊做一個簡單的介紹💫
 			</div>
 			<div id="video-body">
 				<ScrollyVideo
