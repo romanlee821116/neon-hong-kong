@@ -151,7 +151,7 @@ export default {
 					</button>
 				</div>
 				<Carousel
-					ref="carousel" 
+					ref="carousel"
 					:items-to-show="isDesktop ? 3 : 1"
 					:wrap-around="true"
 				>
