@@ -95,7 +95,6 @@ export default {
 
 <template>
 	<Loading v-if="isLoading"/>
-	<Transition>
 		<div v-show="!isLoading">
 			<div class="header">
 				<img
@@ -153,7 +152,7 @@ export default {
 				<Carousel
 					ref="carousel"
 					:items-to-show="isDesktop ? 3 : 1"
-					:wrap-around="true"
+					:wrap-around="false"
 				>
 					<Slide
 						v-for="(img, index) in imgList"
@@ -186,7 +185,6 @@ export default {
 				</div>
 			</div>
 		</div>
-	</Transition>
 </template>
 
 <style lang="scss" scoped>
