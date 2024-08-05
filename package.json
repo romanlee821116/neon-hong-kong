@@ -13,7 +13,6 @@
     "sass": "^1.77.6",
     "scrolly-video": "0.0.23",
     "vue": "^3.4.29",
-    "vue-carousel": "^0.18.0",
     "vue3-carousel": "^0.3.3"
   },
   "devDependencies": {

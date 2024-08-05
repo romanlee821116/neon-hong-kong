@@ -151,7 +151,7 @@ export default {
 				</div>
 				<Carousel
 					ref="carousel"
-					:items-to-show="isDesktop ? 3 : 1"
+					:items-to-show="isDesktop ? 3.5 : 1.5"
 					:wrap-around="false"
 				>
 					<Slide
