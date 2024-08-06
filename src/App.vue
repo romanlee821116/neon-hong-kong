@@ -1,7 +1,7 @@
 <script>
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.vue';
 import Loading from './components/Loading.vue';
-import { Carousel, Slide, Navigation } from 'vue3-carousel';
+import { Carousel, Slide } from 'vue3-carousel';
 import 'vue3-carousel/dist/carousel.css';
 
 export default {
@@ -11,7 +11,6 @@ export default {
 		Carousel,
 		Slide,
 		Loading,
-		Navigation,
 	},
 	computed: {
 		imgList() {
