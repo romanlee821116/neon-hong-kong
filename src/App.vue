@@ -1,15 +1,16 @@
 <script>
 import ScrollyVideo from 'scrolly-video/dist/ScrollyVideo.vue';
 import Loading from './components/Loading.vue';
-import { Carousel, Slide } from 'vue3-carousel';
-import 'vue3-carousel/dist/carousel.css';
+// 移除 vue3-carousel，改為引入 Swiper
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
 
 export default {
 	name: 'App',
 	components: {
 		ScrollyVideo,
-		Carousel,
-		Slide,
+		Swiper,
+		SwiperSlide,
 		Loading,
 	},
 	computed: {
@@ -19,6 +20,7 @@ export default {
 	},
 	data() {
 		return {
+			swiper: null,
 			introList: [
 				{
 					text: '早於個人電腦及數碼字體普及前，店舖東主每當需要製作招牌，就得聘請書法家或「寫字佬」（寫招牌的人），將中文書法以勾線方式畫出。<br>其中以北魏體風格的招牌字在街道上非常流行，成為了一種香港民間特色',
@@ -76,14 +78,15 @@ export default {
 		this.isDesktop = window.innerWidth > 565;
 	},
 	methods: {
-		getPicture(slide) {
-			return require(`./assets/hongkong-${slide}.jpg`);
+		// Swiper 初始化後會呼叫這個函式，把實體存起來
+		onSwiper(swiper) {
+			this.swiper = swiper;
 		},
 		next() {
-			this.$refs.carousel.next();
+			this.swiper?.slideNext();
 		},
 		prev() {
-			this.$refs.carousel.prev();
+			this.swiper?.slidePrev();
 		},
 		readyCallBack() {
 			this.isLoading = false;
@@ -148,12 +151,12 @@ export default {
 						<i class="arrow right" />
 					</button>
 				</div>
-				<Carousel
-					ref="carousel"
-					:items-to-show="isDesktop ? 3.5 : 1.5"
-					:wrap-around="false"
+				<Swiper
+					:slides-per-view="isDesktop ? 3.5 : 1.5"
+					:space-between="30"
+					@swiper="onSwiper"
 				>
-					<Slide
+					<SwiperSlide
 						v-for="(img, index) in imgList"
 						:key="`picture-${index}`"
 					>
@@ -161,11 +164,8 @@ export default {
 							:src="img"
 							alt="hong-kong-picture"
 						>
-					</Slide>
-					<template #addons>
-						<Navigation />
-					</template>
-				</Carousel>
+					</SwiperSlide>
+				</Swiper>
 				<div class="other">
 					如果也喜歡招牌、霓虹燈的朋友，也歡迎到香港M+的<a href="https://www.neonsigns.hk/neon-in-visual-culture/mplus-collects-neon/" target="_blank">探索霓虹</a>網站，看看更多漂亮的霓虹招牌吧！✨
 				</div>
